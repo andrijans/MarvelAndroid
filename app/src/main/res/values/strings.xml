@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MarvelTest</string>
+
+    <string name="no_description">No description available</string>
+    <string name="open_in_web">Open in Web</string>
+</resources>
