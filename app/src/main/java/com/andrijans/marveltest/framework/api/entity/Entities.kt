@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
  * Created by andrijanstankovic on 03/04/2018.
  */
 @Parcelize
-data class Response(val code: Int = -1, val status: String = "", val copyright: String = "", val attributionText: String = "", var data: DataContainer = DataContainer(), val etag: String = "") : Result<DataContainer>() ,Parcelable{
+data class Response(val code: Int = -1, val status: String = "", val copyright: String = "", val attributionText: String = "", var data: DataContainer = DataContainer(), val etag: String = "") : Result<DataContainer>(), Parcelable {
     override fun getResultData(): DataContainer {
         return data
     }
@@ -18,20 +18,21 @@ data class Response(val code: Int = -1, val status: String = "", val copyright: 
     }
 
 }
+
 @Parcelize
-data class DataContainer(val offset: Int = -1, val limit: Int = -1, val total: Int = -1, val count: Int = -1, val results: MutableList<Character> = mutableListOf()):Parcelable
+data class DataContainer(val offset: Int = -1, val limit: Int = -1, val total: Int = -1, val count: Int = -1, val results: MutableList<Character> = mutableListOf()) : Parcelable
 
 @Parcelize
 data class Character(val id: Int = -1,
                      val name: String = "",
                      val description: String = "",
                      val resourceURI: String = "",
-                     val urls: Array<Url> = arrayOf<Url>(),
+                     val urls: MutableList<Url> = mutableListOf(),
                      val thumbnail: Image = Image()
-):Parcelable
+) : Parcelable
 
 @Parcelize
-data class Image(val path: String = "", val extension: String = ""):Parcelable
+data class Image(val path: String = "", val extension: String = "") : Parcelable
 
 @Parcelize
-data class Url(val type: String = "", val url: String = ""):Parcelable
+data class Url(val type: String = "", val url: String = "") : Parcelable
