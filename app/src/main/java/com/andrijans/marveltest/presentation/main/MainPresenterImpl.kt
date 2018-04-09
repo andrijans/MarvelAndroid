@@ -4,11 +4,12 @@ import com.andrijans.marveltest.domain.ILogger
 import com.andrijans.marveltest.framework.api.entity.Character
 import com.andrijans.marveltest.framework.api.entity.DataContainer
 import com.andrijans.marveltest.framework.api.interactor.Listener
+import javax.inject.Inject
 
 /**
  * Created by andrijanstankovic on 03/04/2018.
  */
-class MainPresenterImpl(val view:MainContract.View,val logger:ILogger,val interactor:MainContract.Interactor):MainContract.Presenter {
+class MainPresenterImpl @Inject constructor(val view:MainContract.View,val logger:ILogger,val interactor:MainContract.Interactor):MainContract.Presenter {
 
     override fun loadMoreCharacters(offset: Int) {
        interactor.getCharacters(offset,object :Listener<DataContainer>(){

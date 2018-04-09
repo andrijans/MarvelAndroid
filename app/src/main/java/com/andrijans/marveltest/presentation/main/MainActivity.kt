@@ -4,22 +4,28 @@ package com.andrijans.marveltest.presentation.main
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.andrijans.marveltest.R
+import com.andrijans.marveltest.domain.ILogger
 import com.andrijans.marveltest.framework.api.entity.Character
-import com.andrijans.marveltest.presentation.App
-import com.andrijans.marveltest.presentation.BaseActivity
+import com.andrijans.marveltest.presentation.Navigator
 import com.andrijans.marveltest.presentation.common.view.adapter.PagingRecyclerOnScrollListener
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainContract.View {
+class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     @Inject
     lateinit var presenter: MainContract.Presenter
-    lateinit var adapter: MainAdapter
+    @Inject
+    lateinit var logger: ILogger
+    @Inject
+    lateinit var navigator: Navigator
 
-    override fun injectView() {
-        App.appComponent.plus(MainModule(this)).inject(this)
-    }
+    private lateinit var adapter: MainAdapter
+
+//    override fun injectView() {
+//        App.appComponent.plus(MainModule(this)).inject(this)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

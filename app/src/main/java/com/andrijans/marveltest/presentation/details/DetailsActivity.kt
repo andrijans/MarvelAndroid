@@ -4,14 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.andrijans.marveltest.R
+import com.andrijans.marveltest.domain.ILogger
 import com.andrijans.marveltest.framework.api.entity.Character
-import com.andrijans.marveltest.presentation.App
-import com.andrijans.marveltest.presentation.BaseActivity
+import com.andrijans.marveltest.presentation.Navigator
 import com.bumptech.glide.Glide
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
-class DetailsActivity : BaseActivity(), DetailsContract.View {
+class DetailsActivity : DaggerAppCompatActivity(), DetailsContract.View {
+
+    @Inject
+    lateinit var logger: ILogger
+    @Inject
+    lateinit var navigator: Navigator
 
     companion object {
         val CHARACTER_KEY = "CHARACTER_KEY"
@@ -26,9 +32,9 @@ class DetailsActivity : BaseActivity(), DetailsContract.View {
     @Inject
     lateinit var presenter: DetailsContract.Presenter
 
-    override fun injectView() {
-        App.appComponent.plus(DetailsModule(this)).inject(this)
-    }
+//    override fun injectView() {
+//        App.appComponent.plus(DetailsModule(this)).inject(this)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

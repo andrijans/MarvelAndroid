@@ -3,6 +3,7 @@ package com.andrijans.marveltest.domain
 import com.andrijans.marveltest.framework.api.entity.Response
 import io.reactivex.Observable
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -12,6 +13,12 @@ interface IApiService {
 
     @GET("characters")
     fun getCharacters(
-            @Query("offset") offset:Int
+            @Query("offset") offset: Int
     ): Observable<Response>
+
+    @GET("characters/{id}")
+    fun getCharacter(
+            @Path("id") id: Int
+    ): Observable<Response>
+
 }

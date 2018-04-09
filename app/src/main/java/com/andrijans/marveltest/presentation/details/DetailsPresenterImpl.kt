@@ -1,11 +1,12 @@
 package com.andrijans.marveltest.presentation.details
 
 import com.andrijans.marveltest.framework.api.entity.Character
+import javax.inject.Inject
 
 /**
  * Created by andrijanstankovic on 04/04/2018.
  */
-class DetailsPresenterImpl(val view: DetailsContract.View) : DetailsContract.Presenter {
+class DetailsPresenterImpl @Inject constructor(val view: DetailsContract.View) : DetailsContract.Presenter {
     lateinit var character: Character
 
     override fun openInWebButtonClicked() {

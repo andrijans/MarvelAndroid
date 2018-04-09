@@ -1,5 +1,6 @@
 package com.andrijans.marveltest.presentation.details
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
@@ -7,11 +8,17 @@ import dagger.Provides
  * Created by andrijanstankovic on 04/04/2018.
  */
 @Module
-class DetailsModule(val view: DetailsContract.View) {
+abstract class DetailsModule {
 
-    @Provides
-    fun provideView(): DetailsContract.View = view
+    @Binds
+    abstract fun provideView(activity: DetailsActivity): DetailsContract.View
 
-    @Provides
-    fun providePresenter(): DetailsContract.Presenter = DetailsPresenterImpl(view)
+    @Module
+    companion object {
+        @JvmStatic
+        @Provides
+        fun providePresenter(view: DetailsContract.View): DetailsContract.Presenter = DetailsPresenterImpl(view)
+    }
+
+
 }

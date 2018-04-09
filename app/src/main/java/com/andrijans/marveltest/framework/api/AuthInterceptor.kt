@@ -1,13 +1,10 @@
 package com.andrijans.marveltest.framework.api
 
-import com.andrijans.marveltest.presentation.App
 import com.andrijans.marveltest.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.math.BigInteger
 import java.security.MessageDigest
-import kotlin.experimental.and
-import kotlin.experimental.or
 
 
 /**
@@ -19,9 +16,6 @@ class AuthInterceptor : Interceptor {
         val HASH_KEY = "hash"
         val API_KEY = "apikey"
 
-    }
-    init {
-        App.appComponent.inject(this)
     }
 
     override fun intercept(chain: Interceptor.Chain?): Response? {

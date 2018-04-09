@@ -16,39 +16,47 @@ import javax.inject.Singleton
  * Created by andrijanstankovic on 03/04/2018.
  */
 @Module
-class ApiModule {
+abstract class ApiModule {
 
-    @Provides
-    @Singleton
-    fun provideHttpClient(): okhttp3.OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    @Module
+    companion object {
 
-        val authenticationInterceptor = AuthInterceptor()
+        @JvmStatic
+        @Provides
+        @Singleton
+        fun provideHttpClient(): okhttp3.OkHttpClient {
+            val loggingInterceptor = HttpLoggingInterceptor()
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val httpClient = okhttp3.OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .addInterceptor(authenticationInterceptor)
-                .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
-                .readTimeout(30 * 1000, TimeUnit.MILLISECONDS)
-                .build()
+            val authenticationInterceptor = AuthInterceptor()
 
-        return httpClient
+            val httpClient = okhttp3.OkHttpClient.Builder()
+                    .addInterceptor(loggingInterceptor)
+                    .addInterceptor(authenticationInterceptor)
+                    .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
+                    .readTimeout(30 * 1000, TimeUnit.MILLISECONDS)
+                    .build()
+
+            return httpClient
+        }
+
+        @JvmStatic
+        @Provides
+        @Singleton
+        fun provideRestAdapter(httpClient: OkHttpClient): Retrofit {
+            return Retrofit.Builder()
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(Constants.API_URL)
+                    .client(httpClient)
+                    .build()
+        }
+
+        @JvmStatic
+        @Provides
+        @Singleton
+        fun provideApiService(restAdapter: Retrofit): IApiService = restAdapter.create(IApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideRestAdapter(httpClient: OkHttpClient) : Retrofit {
-        return Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.API_URL)
-                .client(httpClient)
-                .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideApiService(restAdapter: Retrofit): IApiService = restAdapter.create(IApiService::class.java)
 
 }
