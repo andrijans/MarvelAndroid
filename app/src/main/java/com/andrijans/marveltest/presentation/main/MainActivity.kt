@@ -2,7 +2,7 @@ package com.andrijans.marveltest.presentation.main
 
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.andrijans.marveltest.R
 import com.andrijans.marveltest.domain.ILogger
 import com.andrijans.marveltest.framework.api.entity.Character

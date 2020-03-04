@@ -30,14 +30,12 @@ abstract class ApiModule {
 
             val authenticationInterceptor = AuthInterceptor()
 
-            val httpClient = okhttp3.OkHttpClient.Builder()
+            return OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
                     .addInterceptor(authenticationInterceptor)
                     .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                     .readTimeout(30 * 1000, TimeUnit.MILLISECONDS)
                     .build()
-
-            return httpClient
         }
 
         @JvmStatic

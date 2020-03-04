@@ -1,7 +1,7 @@
 package com.andrijans.marveltest.presentation
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.andrijans.marveltest.domain.ILogger
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject

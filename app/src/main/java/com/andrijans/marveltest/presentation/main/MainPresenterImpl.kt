@@ -18,7 +18,7 @@ class MainPresenterImpl @Inject constructor(val view:MainContract.View,val logge
                view.appendCharacters(value.results)
            }
 
-           override fun onError(e: Throwable?) {
+           override fun onError(e: Throwable) {
                logger.e(e)
            }
        })
@@ -31,7 +31,7 @@ class MainPresenterImpl @Inject constructor(val view:MainContract.View,val logge
                view.loadCharacters(value.results)
            }
 
-           override fun onError(e: Throwable?) {
+           override fun onError(e: Throwable) {
                logger.e(e)
            }
        })

@@ -1,7 +1,7 @@
 package com.andrijans.marveltest.presentation.common.view.adapter
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by andrijanstankovic on 04/04/2018.
@@ -16,7 +16,7 @@ abstract class PagingRecyclerOnScrollListener(val linearLayoutManager: LinearLay
     var offset = 0
 
 
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         if (recyclerView != null) {
             visibleItemCount = recyclerView.childCount

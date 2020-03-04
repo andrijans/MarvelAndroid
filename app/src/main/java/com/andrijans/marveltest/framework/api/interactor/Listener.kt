@@ -15,7 +15,7 @@ open class Listener<T>:DisposableObserver<T>(), Observer<T> {
         // empty
     }
 
-    override fun onError(e: Throwable?) {
+    override fun onError(e: Throwable) {
         // empty
     }
 }
