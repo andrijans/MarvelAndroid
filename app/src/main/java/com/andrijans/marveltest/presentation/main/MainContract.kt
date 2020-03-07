@@ -1,24 +1,21 @@
 package com.andrijans.marveltest.presentation.main
 
-import com.andrijans.marveltest.framework.api.entity.Character
-import com.andrijans.marveltest.framework.api.entity.DataContainer
-import com.andrijans.marveltest.framework.api.interactor.Listener
+import com.andrijans.marveltest.presentation.common.constants.Constants
 
 /**
  * Created by andrijanstankovic on 03/04/2018.
  */
 class MainContract {
-    interface View{
-        fun loadCharacters(characters:MutableList<Character>)
-        fun appendCharacters(characters: MutableList<Character>)
-        fun navigateToDetailsScreen(character: Character,shouldFinish:Boolean)
+    interface View {
+        fun setupView()
+        fun navigateToCharacters()
+        fun navigateToAssistance()
     }
-    interface Presenter{
-        fun getCharacters()
-        fun loadMoreCharacters(offset:Int)
-        fun characterClicked(character:Character)
-    }
-    interface Interactor{
-        fun getCharacters(offset:Int, listener:Listener<DataContainer>)
+
+    interface Presenter {
+        fun onCreate()
+        fun charactersItemClicked()
+        fun assistanceItemClicked()
+        fun pageSelected(screen: Constants.SCREEN)
     }
 }

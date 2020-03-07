@@ -2,57 +2,67 @@ package com.andrijans.marveltest.presentation.main
 
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.andrijans.marveltest.R
-import com.andrijans.marveltest.domain.ILogger
-import com.andrijans.marveltest.framework.api.entity.Character
-import com.andrijans.marveltest.presentation.Navigator
-import com.andrijans.marveltest.presentation.common.view.adapter.PagingRecyclerOnScrollListener
-import dagger.android.support.DaggerAppCompatActivity
+import com.andrijans.marveltest.presentation.BaseActivity
+import com.andrijans.marveltest.presentation.common.constants.Constants
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), MainContract.View {
+class MainActivity : BaseActivity(), MainContract.View {
 
     @Inject
     lateinit var presenter: MainContract.Presenter
-    @Inject
-    lateinit var logger: ILogger
-    @Inject
-    lateinit var navigator: Navigator
 
-    private lateinit var adapter: MainAdapter
+    private var mainAdapter: MainPagerAdapter? = null
 
-//    override fun injectView() {
-//        App.appComponent.plus(MainModule(this)).inject(this)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter.getCharacters()
+        presenter.onCreate()
+        initToolbar()
+
     }
 
-    override fun loadCharacters(characters: MutableList<Character>) {
-
-        val layoutManager = LinearLayoutManager(this)
-        adapter = MainAdapter(characters, presenter)
-        characterList.layoutManager = layoutManager
-        characterList.adapter = adapter
-        characterList.addOnScrollListener(object : PagingRecyclerOnScrollListener(layoutManager) {
-            override fun onLoadMore(offset: Int) {
-                presenter.loadMoreCharacters(offset)
+    override fun setupView() {
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.characters -> presenter.charactersItemClicked()
+                R.id.assistance -> presenter.assistanceItemClicked()
+            }
+            true
+        }
+        mainAdapter = MainPagerAdapter(this)
+        mainPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        mainPager.adapter = mainAdapter
+        mainPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                presenter.pageSelected(Constants.SCREEN.values()[position])
             }
         })
+        mainPager.isUserInputEnabled = false
     }
 
-    override fun appendCharacters(characters: MutableList<Character>) {
-        adapter.appendData(characters)
+    override fun navigateToCharacters() {
+        mainPager.currentItem = Constants.SCREEN.CHARACTERS.ordinal
+        bottomNavigationView.menu.findItem(R.id.characters).isChecked = true
+        toolbarTitle.text = getString(R.string.charactersTitle)
     }
 
-    override fun navigateToDetailsScreen(character: Character, shouldFinish: Boolean) {
-        navigator.navigateToDetailsScreen(this, character, shouldFinish)
+    override fun navigateToAssistance() {
+        mainPager.currentItem = Constants.SCREEN.ASSISTANCE.ordinal
+        bottomNavigationView.menu.findItem(R.id.assistance).isChecked = true
+        toolbarTitle.text = getString(R.string.assistance)
     }
 
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar?.also {
+            toolbarTitle.text = getString(R.string.charactersTitle)
+        }
+    }
 
 }

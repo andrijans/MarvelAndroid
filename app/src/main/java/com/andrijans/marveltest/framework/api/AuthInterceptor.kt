@@ -20,7 +20,7 @@ class AuthInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val timestamp = System.currentTimeMillis().toString()
-        val hash = generateHash(timestamp, BuildConfig.MARVEL_PUBLIC_KEY, BuildConfig.MARVEL_PRIVATE_KEY)
+        val hash = generateHash(timestamp)
         var request = chain.request()
         val url = request.url.newBuilder()
                 .addQueryParameter(TIMESTAMP_KEY, timestamp)
@@ -32,10 +32,10 @@ class AuthInterceptor : Interceptor {
     }
 
 
-    private fun generateHash(timestamp: String, publicKey: String, privateKey: String): String {
-        val value = timestamp + privateKey + publicKey
+    private fun generateHash(timestamp: String): String {
+        val value = timestamp + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_PUBLIC_KEY
         val md5Encoder = MessageDigest.getInstance("MD5")
         val md5Bytes = md5Encoder.digest(value.toByteArray())
-        return BigInteger(1,md5Bytes).toString(16)
+        return BigInteger(1, md5Bytes).toString(16)
     }
 }

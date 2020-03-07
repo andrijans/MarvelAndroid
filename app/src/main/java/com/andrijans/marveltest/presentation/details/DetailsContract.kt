@@ -10,12 +10,15 @@ class DetailsContract {
         fun setCharacterImage(url: String)
         fun setCharacterName(name:String)
         fun setCharacterDescription(description:String)
+        fun setNumberOfComics(number:Int)
+        fun setNumberOfSeries(number:Int)
+        fun setNumberOfStories(number:Int)
         fun navigateToWebPage(url: String)
         fun closeScreen()
     }
 
     interface Presenter {
-        fun onCreate(character: Character)
+        fun onCreate(character: Character?)
         fun navigationBackButtonClicked()
         fun openInWebButtonClicked()
     }

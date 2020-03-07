@@ -4,43 +4,31 @@ import com.andrijans.marveltest.domain.ILogger
 import com.andrijans.marveltest.framework.api.entity.Character
 import com.andrijans.marveltest.framework.api.entity.DataContainer
 import com.andrijans.marveltest.framework.api.interactor.Listener
+import com.andrijans.marveltest.presentation.common.constants.Constants
 import javax.inject.Inject
 
 /**
  * Created by andrijanstankovic on 03/04/2018.
  */
-class MainPresenterImpl @Inject constructor(val view:MainContract.View,val logger:ILogger,val interactor:MainContract.Interactor):MainContract.Presenter {
-
-    override fun loadMoreCharacters(offset: Int) {
-       interactor.getCharacters(offset,object :Listener<DataContainer>(){
-           override fun onNext(value: DataContainer) {
-               super.onNext(value)
-               view.appendCharacters(value.results)
-           }
-
-           override fun onError(e: Throwable) {
-               logger.e(e)
-           }
-       })
+class MainPresenterImpl @Inject constructor(val view:MainContract.View,val logger:ILogger):MainContract.Presenter {
+    override fun onCreate() {
+        view.setupView()
     }
 
-    override fun getCharacters() {
-       interactor.getCharacters(0,object :Listener<DataContainer>(){
-           override fun onNext(value: DataContainer) {
-               super.onNext(value)
-               view.loadCharacters(value.results)
-           }
-
-           override fun onError(e: Throwable) {
-               logger.e(e)
-           }
-       })
-
-
+    override fun charactersItemClicked() {
+       view.navigateToCharacters()
     }
 
-    override fun characterClicked(character: Character) {
-        view.navigateToDetailsScreen(character,false)
+    override fun assistanceItemClicked() {
+        view.navigateToAssistance()
     }
+
+    override fun pageSelected(screen: Constants.SCREEN) {
+        when(screen){
+            Constants.SCREEN.CHARACTERS -> view.navigateToCharacters()
+            Constants.SCREEN.ASSISTANCE -> view.navigateToAssistance()
+        }
+    }
+
 
 }

@@ -6,6 +6,9 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+
+def final GOOGLE_API_KEY = "AIzaSyA2WIX--vteHN_oyZG2ThXhjaKnnTlLkFQ"
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -15,7 +18,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [mapsApiKey: GOOGLE_API_KEY]
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -47,6 +52,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'org.mockito:mockito-core:2.8.47'
+    androidTestImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
+
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
@@ -61,6 +69,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     kapt 'com.google.dagger:dagger-compiler:2.19'
     kapt 'com.google.dagger:dagger-android-processor:2.19'

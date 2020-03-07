@@ -4,23 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.andrijans.marveltest.R
-import com.andrijans.marveltest.domain.ILogger
 import com.andrijans.marveltest.framework.api.entity.Character
-import com.andrijans.marveltest.presentation.Navigator
+import com.andrijans.marveltest.presentation.BaseActivity
 import com.bumptech.glide.Glide
-import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 import javax.inject.Inject
 
-class DetailsActivity : DaggerAppCompatActivity(), DetailsContract.View {
+class DetailsActivity : BaseActivity(), DetailsContract.View {
 
     @Inject
-    lateinit var logger: ILogger
-    @Inject
-    lateinit var navigator: Navigator
+    lateinit var presenter: DetailsContract.Presenter
 
     companion object {
-        val CHARACTER_KEY = "CHARACTER_KEY"
+        const val CHARACTER_KEY = "CHARACTER_KEY"
 
         fun getCallingIntent(context: Context, character: Character): Intent {
             val intent = Intent(context, DetailsActivity::class.java)
@@ -29,19 +26,13 @@ class DetailsActivity : DaggerAppCompatActivity(), DetailsContract.View {
         }
     }
 
-    @Inject
-    lateinit var presenter: DetailsContract.Presenter
-
-//    override fun injectView() {
-//        App.appComponent.plus(DetailsModule(this)).inject(this)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         initToolbar()
         presenter.onCreate(intent.getParcelableExtra(CHARACTER_KEY))
-        openInWebButton.setOnClickListener({ presenter.openInWebButtonClicked() })
+        openInWebButton.setOnClickListener { presenter.openInWebButtonClicked() }
     }
 
     override fun setCharacterImage(url: String) {
@@ -49,15 +40,25 @@ class DetailsActivity : DaggerAppCompatActivity(), DetailsContract.View {
     }
 
     override fun setCharacterName(name: String) {
-        if (name.isBlank()) {
-            collapsingToolbar.title = getString(R.string.no_description)
-        } else {
-            collapsingToolbar.title = name
-        }
+        characterName.text = name
+        toolbarTitle.text = name
+
     }
 
     override fun setCharacterDescription(descriptionString: String) {
         description.text = descriptionString
+    }
+
+    override fun setNumberOfComics(number: Int) {
+        comicsNumber.text= number.toString()
+    }
+
+    override fun setNumberOfSeries(number: Int) {
+       seriesNumber.text=number.toString()
+    }
+
+    override fun setNumberOfStories(number: Int) {
+       storiesNumber.text=number.toString()
     }
 
     override fun navigateToWebPage(url: String) {
@@ -72,7 +73,8 @@ class DetailsActivity : DaggerAppCompatActivity(), DetailsContract.View {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.setNavigationOnClickListener({ presenter.navigationBackButtonClicked() })
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener { presenter.navigationBackButtonClicked() }
     }
 
 }

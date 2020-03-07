@@ -3,4 +3,15 @@
 
     <string name="no_description">No description available</string>
     <string name="open_in_web">Open in Web</string>
+    <string name="characters">Characters</string>
+    <string name="assistance">Assistance</string>
+    <string name="charactersTitle">Marvel characters</string>
+    <string name="your_locaiton">Your locaiton:</string>
+    <string name="gps_position">GPS position:</string>
+    <string name="call_roadside_assistance">Call roadside assistance</string>
+    <string name="gps_coords">Lat %f Lng %f</string>
+    <string name="comics">Comics</string>
+    <string name="series">Series</string>
+    <string name="stories">Stories</string>
+    <string name="comic_link">Comic link</string>
 </resources>

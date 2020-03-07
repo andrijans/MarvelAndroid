@@ -18,11 +18,6 @@ abstract class MainModule {
     companion object {
         @JvmStatic
         @Provides
-        fun providePresenter(view: MainContract.View, logger: ILogger, interactor: MainContract.Interactor): MainContract.Presenter = MainPresenterImpl(view, logger, interactor)
-
-        @JvmStatic
-        @Provides
-        fun provideMainInteractor(interactor: MainInteractor): MainContract.Interactor = interactor
+        fun providePresenter(view: MainContract.View, logger: ILogger): MainContract.Presenter = MainPresenterImpl(view, logger)
     }
-
 }

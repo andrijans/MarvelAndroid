@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.andrijans.marveltest.presentation.common.view.map.AssistanceMapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_view_height"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/locationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/padding_small"
+            android:paddingStart="0dp"
+            android:paddingBottom="@dimen/padding_small"
+            android:text="@string/your_locaiton"
+            android:textColor="@color/textSecundary"
+            app:layout_constraintEnd_toStartOf="@id/locationValue"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/locationValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/locationTitle"
+            app:layout_constraintTop_toTopOf="@id/locationTitle"
+            tools:text="Broadway Street,New York" />
+
+        <TextView
+            android:id="@+id/latlngTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gps_position"
+            android:textColor="@color/textSecundary"
+            android:paddingEnd="@dimen/padding_small"
+            android:paddingStart="0dp"
+            app:layout_constraintEnd_toStartOf="@id/latlngValue"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/locationTitle" />
+
+        <TextView
+            android:id="@+id/latlngValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@+id/latlngTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/latlngTitle"
+            app:layout_constraintTop_toTopOf="@id/latlngTitle"
+            tools:text="Lat 00.00 Lng 00.00" />
+
+        <Button
+            android:id="@+id/roadAssistanceBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/call_roadside_assistance"
+            android:background="@drawable/assistance_button_background"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:textColor="@color/textPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

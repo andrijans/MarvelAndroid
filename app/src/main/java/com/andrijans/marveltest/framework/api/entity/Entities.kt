@@ -28,7 +28,10 @@ data class Character(val id: Int = -1,
                      val description: String = "",
                      val resourceURI: String = "",
                      val urls: MutableList<Url> = mutableListOf(),
-                     val thumbnail: Image = Image()
+                     val thumbnail: Image = Image(),
+                     val comics: Comics = Comics(),
+                     val series: Series = Series(),
+                     val stories: Stories = Stories()
 ) : Parcelable
 
 @Parcelize
@@ -36,3 +39,21 @@ data class Image(val path: String = "", val extension: String = "") : Parcelable
 
 @Parcelize
 data class Url(val type: String = "", val url: String = "") : Parcelable
+
+@Parcelize
+data class Comics(val available: Int = 0, val collectionURI: String = "", val items: MutableList<Comic> = mutableListOf()) : Parcelable
+
+@Parcelize
+data class Comic(val resourceURI: String = "", val name: String = "") : Parcelable
+
+@Parcelize
+data class Stories(val available: Int = 0, val collectionURI: String = "", val items: MutableList<Story> = mutableListOf()) : Parcelable
+
+@Parcelize
+data class Story(val resourceURI: String = "", val name: String = "", val type: String = "") : Parcelable
+
+@Parcelize
+data class Series(val available: Int = 0, val collectionURI: String = "", val items: MutableList<Serie> = mutableListOf()) : Parcelable
+
+@Parcelize
+data class Serie(val resourceURI: String = "", val name: String = "") : Parcelable

@@ -1,17 +1,18 @@
 package com.andrijans.marveltest.presentation.details
 
 import com.andrijans.marveltest.framework.api.entity.Character
-import javax.inject.Inject
 
 /**
  * Created by andrijanstankovic on 04/04/2018.
  */
-class DetailsPresenterImpl @Inject constructor(val view: DetailsContract.View) : DetailsContract.Presenter {
-    lateinit var character: Character
+class DetailsPresenterImpl(val view: DetailsContract.View) : DetailsContract.Presenter {
+    var character: Character? = null
 
     override fun openInWebButtonClicked() {
-        if (character.urls.isNotEmpty()){
-            view.navigateToWebPage(character.urls[0].url)
+        character?.also {
+            if (!it.urls.isNullOrEmpty()) {
+                view.navigateToWebPage(it.urls[0].url)
+            }
         }
     }
 
@@ -19,11 +20,17 @@ class DetailsPresenterImpl @Inject constructor(val view: DetailsContract.View) :
         view.closeScreen()
     }
 
-    override fun onCreate(character: Character) {
+    override fun onCreate(character: Character?) {
         this.character = character
-        view.setCharacterName(character.name)
-        view.setCharacterDescription(character.description)
-        view.setCharacterImage(character.thumbnail.path + "." + character.thumbnail.extension)
+        character?.let {
+            view.setCharacterName(it.name)
+            view.setCharacterDescription(it.description)
+            view.setCharacterImage(it.thumbnail.path + "." + it.thumbnail.extension)
+            view.setNumberOfComics(it.comics.available)
+            view.setNumberOfSeries(it.series.available)
+            view.setNumberOfStories(it.stories.available)
+        }
+
     }
 
 }

@@ -12,11 +12,12 @@ import dagger.android.ContributesAndroidInjector
  * Created by andrijanstankovic on 06/04/2018.
  */
 @Module
-abstract class ActivityBuilder {
+abstract class
+ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = [(MainModule::class)])
+    @ContributesAndroidInjector(modules = [MainModule::class,FragmentBuilder::class])
     abstract fun bindMainActivity(): MainActivity
 
-    @ContributesAndroidInjector(modules = [(DetailsModule::class)])
+    @ContributesAndroidInjector(modules = [DetailsModule::class])
     abstract fun bindDetailsActivity(): DetailsActivity
 }

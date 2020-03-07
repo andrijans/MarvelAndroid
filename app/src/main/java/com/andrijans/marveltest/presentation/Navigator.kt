@@ -11,6 +11,7 @@ import com.andrijans.marveltest.R
 import com.andrijans.marveltest.framework.api.entity.Character
 import com.andrijans.marveltest.presentation.details.DetailsActivity
 
+
 /**
  * Created by andrijanstankovic on 04/04/2018.
  */
@@ -32,6 +33,12 @@ class Navigator {
                 .build()
         intent.launchUrl(context, Uri.parse(url))
 
+    }
+
+    fun openPhoneDialer(context:Context,number:String){
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$number")
+        startActivity(context,intent,false)
     }
 
 }
