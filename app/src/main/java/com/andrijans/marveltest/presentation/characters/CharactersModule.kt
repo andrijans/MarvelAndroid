@@ -3,6 +3,7 @@ package com.andrijans.marveltest.presentation.characters
 import com.andrijans.marveltest.domain.IApiService
 import com.andrijans.marveltest.domain.ILogger
 import com.andrijans.marveltest.framework.api.interactor.SubscriptionBag
+import com.andrijans.marveltest.presentation.common.util.NetworkUtil
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,7 @@ abstract class CharactersModule {
     companion object {
         @JvmStatic
         @Provides
-        fun providePresenter(view: CharactersContract.View, logger: ILogger, interactor: CharactersContract.Interactor): CharactersContract.Presenter = CharactersPresenterImpl(view, logger, interactor)
+        fun providePresenter(view: CharactersContract.View, logger: ILogger, interactor: CharactersContract.Interactor, networkUtil: NetworkUtil): CharactersContract.Presenter = CharactersPresenterImpl(view, logger, interactor, networkUtil)
 
         @JvmStatic
         @Provides

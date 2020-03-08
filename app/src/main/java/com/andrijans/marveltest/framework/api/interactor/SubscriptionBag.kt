@@ -16,6 +16,7 @@ class SubscriptionBag(val workerThread:IWorkerThread, val resultThread:IResultTh
         this.disposables.add(observable
                 .subscribeOn(workerThread.getScheduler())
                 .observeOn(resultThread.getScheduler())
+                .retry(2)
                 .subscribeWith(subscriber)
         )
     }

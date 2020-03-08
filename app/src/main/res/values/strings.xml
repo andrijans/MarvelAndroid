@@ -14,4 +14,6 @@
     <string name="series">Series</string>
     <string name="stories">Stories</string>
     <string name="comic_link">Comic link</string>
+    <string name="no_internet_message">It appears you are offline. Turn on the internet connection and click retry!</string>
+    <string name="retry">Retry</string>
 </resources>

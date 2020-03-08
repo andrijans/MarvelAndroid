@@ -25,6 +25,8 @@ class CharactersFragment : DaggerFragment(), CharactersContract.View {
 
     private var adapter: CharactersAdapter? = null
 
+    enum class SCREEN_TYPE { DATA, OFFLINE, ERROR }
+
     companion object {
         fun newInstance(): CharactersFragment = CharactersFragment()
     }
@@ -36,14 +38,16 @@ class CharactersFragment : DaggerFragment(), CharactersContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onViewCreated()
+        retryButton.setOnClickListener { presenter.retryBtnClicked() }
+        retryErrorButton.setOnClickListener { presenter.retryBtnClicked() }
     }
 
     override fun loadCharacters(characters: MutableList<Character>) {
         val layoutManager = GridLayoutManager(activity, 2)
         adapter = CharactersAdapter(characters, presenter)
-        characterList.layoutManager = layoutManager
-        characterList.adapter = adapter
-        characterList.addOnScrollListener(object : PagingRecyclerOnScrollListener(layoutManager) {
+        characterList?.layoutManager = layoutManager
+        characterList?.adapter = adapter
+        characterList?.addOnScrollListener(object : PagingRecyclerOnScrollListener(layoutManager) {
             override fun onLoadMore(offset: Int) {
                 presenter.loadMoreCharacters(offset)
             }
@@ -56,6 +60,18 @@ class CharactersFragment : DaggerFragment(), CharactersContract.View {
 
     override fun navigateToDetailsScreen(character: Character, shouldFinish: Boolean) {
         activity?.also { navigator.navigateToDetailsScreen(it, character, shouldFinish) }
+    }
+
+    override fun showDataScreen() {
+        flipper.displayedChild = SCREEN_TYPE.DATA.ordinal
+    }
+
+    override fun showOfflineScreen() {
+        flipper.displayedChild = SCREEN_TYPE.OFFLINE.ordinal
+    }
+
+    override fun showErrorScreen() {
+        flipper.displayedChild = SCREEN_TYPE.ERROR.ordinal
     }
 
 }

@@ -13,6 +13,7 @@ import com.andrijans.marveltest.R
 import com.andrijans.marveltest.domain.IResultThread
 import com.andrijans.marveltest.domain.IWorkerThread
 import com.andrijans.marveltest.presentation.Navigator
+import com.andrijans.marveltest.presentation.common.util.NetworkUtil
 import com.google.android.gms.location.LocationServices
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -31,6 +32,8 @@ class AssistanceFragment : DaggerFragment(), AssistanceContract.View {
     lateinit var resultThread: IResultThread
     @Inject
     lateinit var navigator: Navigator
+    @Inject
+    lateinit var networkUtil: NetworkUtil
 
     companion object {
         const val permsRequestCode = 200
@@ -107,12 +110,14 @@ class AssistanceFragment : DaggerFragment(), AssistanceContract.View {
 
 
     override fun setUserAddress(latitude: Double, longitude: Double) {
-        Observable.just(getGeocoderAddress(latitude, longitude))
-                .subscribeOn(workerThread.getScheduler())
-                .observeOn(resultThread.getScheduler())
-                .subscribe { address ->
-                    locationValue.text = address?.getAddressLine(0)
-                }
+        if (networkUtil.isNetworkAvailable()) {
+            Observable.just(getGeocoderAddress(latitude, longitude))
+                    .subscribeOn(workerThread.getScheduler())
+                    .observeOn(resultThread.getScheduler())
+                    .subscribe { address ->
+                        locationValue.text = address?.getAddressLine(0)
+                    }
+        }
     }
 
     private fun getGeocoderAddress(latitude: Double, longitude: Double): Address? {

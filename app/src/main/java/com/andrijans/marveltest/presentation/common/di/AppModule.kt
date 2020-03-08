@@ -10,6 +10,7 @@ import com.andrijans.marveltest.framework.monitoring.Logger
 import com.andrijans.marveltest.presentation.Navigator
 import com.andrijans.marveltest.presentation.common.executor.IOThread
 import com.andrijans.marveltest.presentation.common.executor.UIThread
+import com.andrijans.marveltest.presentation.common.util.NetworkUtil
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -50,6 +51,11 @@ abstract class AppModule {
         @Provides
         @Singleton
         fun provideNavigator(): Navigator = Navigator()
+
+        @JvmStatic
+        @Provides
+        @Singleton
+        fun provideNetworkUtil(context: Context): NetworkUtil = NetworkUtil(context)
 
     }
 

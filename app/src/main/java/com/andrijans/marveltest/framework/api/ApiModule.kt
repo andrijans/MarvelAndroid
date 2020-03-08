@@ -24,7 +24,7 @@ abstract class ApiModule {
         @JvmStatic
         @Provides
         @Singleton
-        fun provideHttpClient(): okhttp3.OkHttpClient {
+        fun provideHttpClient(): OkHttpClient {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 

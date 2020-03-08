@@ -23,14 +23,16 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
 
-        <activity android:name=".presentation.main.MainActivity">
+        <activity android:name=".presentation.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.details.DetailsActivity"></activity>
+        <activity android:name=".presentation.details.DetailsActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 
