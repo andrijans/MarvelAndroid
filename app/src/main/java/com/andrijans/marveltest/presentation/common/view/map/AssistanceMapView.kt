@@ -156,16 +156,6 @@ class AssistanceMapView : MapView {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
-
-    private fun getCameraUpdateForBounds(latLngBounds: LatLngBounds): CameraUpdate {
-        val width = resources.displayMetrics.widthPixels
-        val height = resources.displayMetrics.heightPixels
-        val padding = (width * 0.1).toInt()
-
-        return CameraUpdateFactory.newLatLngBounds(latLngBounds, width, height, padding)
-    }
-
-
     private fun getMap(listener: OnMapReadyCallback) {
         if (map == null) {
             oneTimeListeners.add(listener)

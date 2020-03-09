@@ -18,8 +18,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        injectView()
     }
 
-//    protected abstract fun injectView()
 }
