@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Created by andrijanstankovic on 04/04/2018.
  */
-abstract class PagingRecyclerOnScrollListener(val linearLayoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+abstract class PagingRecyclerOnScrollListener(private val linearLayoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
     var previousTotal = 0
     var loading = true
     var visibleThreshold = 15
@@ -18,9 +18,7 @@ abstract class PagingRecyclerOnScrollListener(val linearLayoutManager: LinearLay
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
-        if (recyclerView != null) {
             visibleItemCount = recyclerView.childCount
-        }
         totalItemCount = linearLayoutManager.itemCount
         firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition()
 
